@@ -1,2 +1,4 @@
 env
-.envllmvenv/
+.env
+llmvenv/
+llmvenv/
