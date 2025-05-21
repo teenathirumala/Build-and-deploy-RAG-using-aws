@@ -1,0 +1,6 @@
+{
+    "modelId":"meta.llama2-70b-chat-v1",
+    "contentType":"application/json",
+    "accept":"application/json",
+    "body":"{\"prompt\":\"[INST]you are a helpful assistant with an exceptional critical thinking . tell me sbout machine learning [/INST]\"}"
+}
