@@ -4,10 +4,10 @@ import boto3
 
 print("imported successfully")
 
-prompt = "You are a helpful assistant. Explain machine learning in the smartest way possible."
+prompt = "You are a cricket expert now tell me when will RCB win the IPL"
 
 # Create Bedrock Runtime client (use correct region)
-bedrock = boto3.client(service_name="bedrock-runtime", region_name="us-east-1")
+bedrock = boto3.client(service_name="bedrock-runtime", region_name="ap-south-1")
 
 # Llama3 expects the prompt wrapped in [INST]...[/INST]
 payload = {
