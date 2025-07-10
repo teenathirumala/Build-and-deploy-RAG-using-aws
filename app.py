@@ -1,3 +1,4 @@
+# get the data -> split it into chunks -> turn them into embeddings ->store in vector store
 import json
 import os
 import sys
