@@ -1,10 +1,9 @@
 # get the data -> split it into chunks -> turn them into embeddings ->store in vector store
 from langchain.chains import RetrievalQA
-from langchain_community.vectorstores import FAISS
-from langchain_community.llms.bedrock import Bedrock
+from langchain.vectorstores import FAISS
+from langchain.llms.bedrock import Bedrock
 from langchain.prompts import PromptTemplate
 from QAsystem.ingestion import get_vector_store
-from QAsystem.ingestion import data_ingestion
 import boto3
 
 bedrock=boto3.client("bedrock-runtime")
@@ -25,19 +24,19 @@ PROMPT=PromptTemplate(
 
 # get llm
 def get_llama3_llm():
-    llm=Bedrock(model_id="meta.llama3-70b-instruct-v1:0",client=bedrock)
+    llm=Bedrock(model_id="meta.llama3-70b-instruct-v1:0",client=bedrock, model_kwargs={"maxTokens":512})
     return llm
 
 # get retriever
 def get_response_llm(LLm,vectorstore_faiss,query):
     qa=RetrievalQA.from_chain_type(
-        llm=LLm,
+        LLm=LLm,
         chain_type="stuff",
         retriever=vectorstore_faiss.as_retriever(
             search_type="similarity",
             search_kwargs={"k":3}
         ),
-        return_source_documents=True,
+        return_surce_parameters=True,
         chain_type_kwargs={"prompt":PROMPT}
         
     )
@@ -46,8 +45,7 @@ def get_response_llm(LLm,vectorstore_faiss,query):
 
 
 if __name__=='__main__':
-    docs=data_ingestion()
     query="what is RAG token?"
-    vector_faiss=get_vector_store(docs)
+    vector_faiss=get_vector_store()
     llm=get_llama3_llm()
-    print(get_response_llm(llm,vector_faiss,query))
+    get_response_llm(llm,vector_faiss,query)
